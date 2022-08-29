@@ -39,7 +39,7 @@ const listaDependentes =  [...clientes[0].dependentes,...clientes[1].dependentes
 //sintaxe de espalhamento => ...
 //basicamente tira a informação de onde ela ta e atira pra dentro de um array (???)
 
-console.log(listaDependentes) // listaDependentes = array de objetos com chaves e valores de dependentes.
+//console.log(listaDependentes) // listaDependentes = array de objetos com chaves e valores de dependentes.
 
 //chaves viram colunas, valore viram linhas 
 console.table(listaDependentes)
