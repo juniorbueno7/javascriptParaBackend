@@ -1,11 +1,13 @@
-export default class User { //npm init -y, depois de description "type": "module" 
-  #nome //para fazer propriedades privadas
+export default class User {
+  #nome 
+  #sobrenome
   #email
   #nasc
   #role
   #ativo
-  constructor(nome, email, nasc, role, ativo = true){ //ativo ja declarado
+  constructor(nome, sobrenome, email, nasc, role, ativo = true){ //ativo ja declarado
     this.#nome = nome // pp = propriedade privada
+    this.#sobrenome = sobrenome
     this.#email = email
     this.#nasc = nasc
     this.#role = role || 'estudante' //se nao receber o argumento, por padrao, será estudante
@@ -16,6 +18,11 @@ export default class User { //npm init -y, depois de description "type": "module
   get nome(){
     //pode ter lógica condicional
     return this.#nome
+    //`${this.#nome} ${this.#sobrenome}`
+  }
+
+  get sobrenome() {
+    return this.#sobrenome
   }
 
   get email(){
@@ -35,7 +42,13 @@ export default class User { //npm init -y, depois de description "type": "module
   }
 
   set nome(novoNome){
-    this.#nome = novoNome
+    if(novoNome === ''){
+      throw new Error ('formato inválido') 
+    }
+    let [nome,...sobrenome] = novoNome.split("")
+    sobrenome = sobrenome.join('')
+    this.#nome = nome
+    this.#sobrenome = sobrenome
   }
 
   //agora o o contexto são os getters, afinal o constructor tem a #, são todos privados 
@@ -62,3 +75,9 @@ export default class User { //npm init -y, depois de description "type": "module
 }
 
 // console.log(User.prototype.isPrototypeOf(novoUser)) // true
+
+const novoUser = new User('Juliana', 'Souza', 'j@j.com', '2021-01-01')
+console.log(novoUser.nome) //'Juliana'
+novoUser.nome = 'Juliana Silva Souza'
+console.log(novoUser.nome) //'Juliana'
+console.log(novoUser.sobrenome) //'Silva Souza'
